@@ -44,9 +44,11 @@ export default function App() {
               headerStyle: {
                 backgroundColor: "black",
               },
+              headerShadowVisible: false,
               headerTitleStyle: {
                 fontSize: 14,
               },
+              headerBackTitle: "Geri",
               headerTintColor: "white",
             }}
           />
@@ -61,9 +63,12 @@ export default function App() {
               headerStyle: {
                 backgroundColor: "black",
               },
+              
               headerTitleStyle: {
                 fontSize: 14,
               },
+              headerShadowVisible: false,
+              headerBackTitle: "Geri",
               headerTintColor: "white",
             }}
           />

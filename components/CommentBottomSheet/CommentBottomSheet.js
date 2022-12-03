@@ -1,5 +1,5 @@
-import { View, Text, Pressable, TextInput } from "react-native";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import { View, Text } from "react-native";
+import React, {  useMemo, useRef, useState } from "react";
 import BottomSheet, { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import CommentCard from "../UI/Cards/CommentCard";
 import CommentBottomSheetInput from "./CommentBottomSheetInput";
