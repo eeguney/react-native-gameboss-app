@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { SharedElement } from "react-navigation-shared-element";
 import CardWithTooltip from "./CardWithTooltip";
+import BLOG_CATEGORIES from "../../../constants/blog_categories";
 
 const SCREEN = Dimensions.get("screen").width;
 const CONTAINERMARGIN = 32;
@@ -21,9 +22,9 @@ export default function Card4({ item }) {
         style={{ width: CARDWIDTH }}
         className={`mb-4 flex-row items-center`}
       >
-        <SharedElement id={`item.${item.uniqueId}.id`}>
+        <SharedElement id={`item.${item.id}.id`}>
           <Image
-            source={item.img}
+            source={{ uri: item.thumbnail }}
             style={{ width: CARDWIDTH, height: CARDHEIGHT }}
             className="mr-3 rounded"
             resizeMode="contain"
@@ -37,7 +38,7 @@ export default function Card4({ item }) {
           <Text
             className={`mt-1 text-white font-semibold rounded-sm bg-[#020AB8] px-2 py-1 text-[10px] self-start`}
           >
-            {item.category}
+            {BLOG_CATEGORIES[item.categoryId]}
           </Text>
         </View>
       </View>

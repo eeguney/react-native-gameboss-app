@@ -22,9 +22,9 @@ export default function Card2({ item, noMargin }) {
           style={{ width: CARDWIDTH }}
           className={`mb-4 ${!noMargin && "mr-3"}`}
         >
-          <SharedElement id={`item.${item.uniqueId}.id`}>
+          <SharedElement id={`item.${item.id}.id`}>
             <Image
-              source={item.img}
+              source={{ uri: item.thumbnail }}
               style={{ width: CARDWIDTH, height: CARDHEIGHT }}
               className="rounded"
               resizeMode="contain"

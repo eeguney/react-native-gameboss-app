@@ -10,38 +10,44 @@ import { Pressable } from "react-native";
 import Buttons from "../components/UI/Buttons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTheme } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { selectAuthenticateduser } from "../store/appSettingsSlice";
 
-export default function HomeStack({ navigation }) {
+export default function HomeStack({ navigation, route }) {
+  const user = useSelector(selectAuthenticateduser)
   const Tab = createBottomTabNavigator();
   const { colors } = useTheme();
 
-  const HeaderOptions =  {
-      headerTintColor: "#fff",
-      headerTitleStyle: {
-        fontWeight: "bold",
-      },
-      headerShadowVisible: false,
-      headerTitleAlign: "center",
-      headerStyle: {
-        backgroundColor: "#000",
-      },
-      headerTitle: "App",
-      headerLeftContainerStyle: {
-        paddingLeft: 14,
-      },
-      headerRightContainerStyle: {
-        paddingRight: 14,
-      },
-      headerLeft: () => (
-        <Pressable onPress={() => navigation.openDrawer()}>
-          <Ionicons name="filter-sharp" size={25} color="white" />
-        </Pressable>
-      ),
-      headerRight: () => (
+
+  const HeaderOptions = {
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+      fontWeight: "bold",
+    },
+    headerShadowVisible: false,
+    headerTitleAlign: "center",
+    headerStyle: {
+      backgroundColor: "#000",
+    },
+    headerTitle: "App",
+    headerLeftContainerStyle: {
+      paddingLeft: 14,
+    },
+    headerRightContainerStyle: {
+      paddingRight: 14,
+    },
+    headerLeft: () => (
+      <Pressable onPress={() => navigation.openDrawer()}>
+        <Ionicons name="filter-sharp" size={25} color="white" />
+      </Pressable>
+    ),
+    headerRight: () => (
+      <Pressable onPress={() => navigation.push("Login")}>
         <Buttons.HeaderUser
-          avatar={require("../assets/icons/userAvatar1.png")}
+          avatar={user ? {uri: user.picture } : require("../assets/icons/userAvatar1.png")}
         />
-      ),
+      </Pressable>
+    ),
   };
 
   return (

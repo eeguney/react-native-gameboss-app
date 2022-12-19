@@ -4,6 +4,7 @@ import Wrapper from "../components/Wrapper";
 import { SharedElement } from "react-navigation-shared-element";
 import CommentBottomSheet from "../components/CommentBottomSheet/CommentBottomSheet";
 import RenderHtml from "react-native-render-html";
+import {decode} from 'html-entities';
 
 const SCREEN = Dimensions.get("screen").width;
 
@@ -19,9 +20,9 @@ export default function SingleNews({ route, navigation }) {
   return (
     <>
       <Wrapper noActivity>
-        <SharedElement id={`item.${item.uniqueId}.id`}>
+        <SharedElement id={`item.${item.id}.id`}>
           <Image
-            source={item.img}
+            source={{ uri: item.thumbnail}}
             style={{
               width: SCREEN,
               height: SCREEN * 0.575,
@@ -35,26 +36,7 @@ export default function SingleNews({ route, navigation }) {
           </Text>
           <RenderHtml
             source={{
-              html: `<div style="color: white">
-              <p style="font-weight: 600">Former Gaimin Gladiators’ midlaner, BOOM enters the arena.
-              Team Secret Dota 2 roster for 2022/2023 DPC is now complete.</p>
-              <p>A new era begins. Western European powerhouse, Team Secret finalizes its Dota 2 roster 
-              for the upcoming Dota Pro Circuit (DPC) season with the addition of Miroslav “BOOM” Bičan.
-              The former Gaimin Gladiators’ midlaner will fill in the shoes of Secret’s former midlaner, Michał “Nisha” Jankowski.
-              </p>
-              <p>Here is Team Secret’s Dota 2 roster for the upcoming season:</p>
-              <li>- Remco “Crystallis” Arets</li>
-              <li>- Miroslav “BOOM” Bičan</li>
-              <li>- Roman “Resolut1on” Fomynok</li>
-              <li>- Baqyt “Zayac” Emiljanov</li>
-              <p>Team Secret has been teasing the community with a slow roster reveal. In a couple of days, it unveiled the same
-              lineup up until the departure of Nisha – which shook the Dota 2 community. To fill in the massive void left by Nisha,
-              Team Secret picked up young Czech player, BOOM.
-              </p>
-              <p>“Boom is a skilled midlaner that has progressed year after year,” said Puppey, the captain of Team Secret. 
-              “Talking to him was a pleasant and confidence assuring experience. He is young, hungry, talented and I think he
-              will be a great fit to the team.”</p>
-              </div>`,
+              html: decode(item.text)
             }}
             tagsStyles={{
               p: {

@@ -1,86 +1,102 @@
 import { TailwindProvider } from "tailwindcss-react-native";
-import { DarkTheme, NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from "@react-navigation/stack";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import Drawer from "./drawer/Drawer";
 import SingleLive from "./screens/SingleLive";
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
-import { useColorScheme } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import SingleNews from "./screens/SingleNews";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import LoginScreen from "./screens/LoginScreen";
+import AuthenticationProvider from "./utils/AuthenticationProvider";
 
-const MyTheme = {
+const CustomDarkMode = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: '#000'
+    background: "#000",
+    text: "white",
   },
 };
 
-
+const CustomLightMode = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "white",
+  },
+};
 
 export default function App() {
+  // theming
+  const isDarkMode = store.getState().appSettings.darkMode;
+  const theme = isDarkMode ? CustomDarkMode : CustomLightMode;
+
+  // stack
   const Stack = createSharedElementStackNavigator();
-  const scheme = useColorScheme();
+
   return (
-    // <NavigationContainer theme={scheme === 'dark' ? DarkTheme : DefaultTheme}>
-    <NavigationContainer theme={MyTheme}>
-      <TailwindProvider>
-        <Stack.Navigator
-          initialRouteName="Root"
-          mode="modal"
-          // screenOptions={{cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid}}
-        >
-          <Stack.Screen
-            name="SingleLive"
-            component={SingleLive}
-            sharedElements={(route, otherRoute, showing) => {
-              const { item } = route.params;
-              return [{ id: `item.${item.uniqueId}.id` }];
-            }}
-            options={{
-              headerStyle: {
-                backgroundColor: "black",
-              },
-              headerShadowVisible: false,
-              headerTitleStyle: {
-                fontSize: 14,
-              },
-              headerBackTitle: "Geri",
-              headerTintColor: "white",
-            }}
-          />
-          <Stack.Screen
-            name="SingleNews"
-            component={SingleNews}
-            sharedElements={(route, otherRoute, showing) => {
-              const { item } = route.params;
-              return [{ id: `item.${item.uniqueId}.id` }];
-            }}
-            options={{
-              headerStyle: {
-                backgroundColor: "black",
-              },
-              
-              headerTitleStyle: {
-                fontSize: 14,
-              },
-              headerShadowVisible: false,
-              headerBackTitle: "Geri",
-              headerTintColor: "white",
-            }}
-          />
-          <Stack.Screen
-            name="Root"
-            component={Drawer}
-            options={{
-              headerShown: false,
-            }}
-          />
-        </Stack.Navigator>
-      </TailwindProvider>
-    </NavigationContainer>
+    <Provider store={store}>
+      <AuthenticationProvider>
+        <NavigationContainer theme={theme}>
+          <TailwindProvider>
+            <Stack.Navigator initialRouteName={"Root"} mode="modal">
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="SingleLive"
+                component={SingleLive}
+                sharedElements={(route, otherRoute, showing) => {
+                  const { item } = route.params;
+                  return [{ id: `item.${item.id}.id` }];
+                }}
+                options={{
+                  headerStyle: {
+                    backgroundColor: "black",
+                  },
+                  headerShadowVisible: false,
+                  headerTitleStyle: {
+                    fontSize: 14,
+                  },
+                  headerBackTitle: "Geri",
+                  headerTintColor: "white",
+                }}
+              />
+              <Stack.Screen
+                name="SingleNews"
+                component={SingleNews}
+                sharedElements={(route, otherRoute, showing) => {
+                  const { item } = route.params;
+                  return [{ id: `item.${item.id}.id` }];
+                }}
+                options={{
+                  headerStyle: {
+                    backgroundColor: "black",
+                  },
+
+                  headerTitleStyle: {
+                    fontSize: 14,
+                  },
+                  headerShadowVisible: false,
+                  headerBackTitle: "Geri",
+                  headerTintColor: "white",
+                }}
+              />
+              <Stack.Screen
+                name="Root"
+                component={Drawer}
+                options={{
+                  headerShown: false,
+                }}
+              />
+            </Stack.Navigator>
+          </TailwindProvider>
+        </NavigationContainer>
+      </AuthenticationProvider>
+    </Provider>
   );
 }

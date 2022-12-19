@@ -1,0 +1,17 @@
+import Constants from 'expo-constants';
+
+const ENV =  Constants.expoConfig.extra.env;
+
+const ENV_CONFIG = {
+    REVOKE_ENDPOINT: ENV.REVOKE_ENDPOINT,
+    EXPO_CLIENT: ENV.EXPO_CLIENT,
+    ANDROID_CLIENT: ENV.ANDROID_CLIENT,
+    USERINFO_ENDPOINT: ENV.USERINFO_ENDPOINT,
+    REFRESH_TOKEN_ENDPOINT: ENV.REFRESH_TOKEN_ENDPOINT,
+    API: {
+        TOURNAMENTS: ENV.API.TOURNAMENTS,
+        BLOGS: ENV.API.BLOGS,
+    }
+}
+
+export default ENV_CONFIG;

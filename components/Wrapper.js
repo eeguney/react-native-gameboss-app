@@ -1,17 +1,19 @@
 import {
   View,
-  Text,
   InteractionManager,
   ActivityIndicator,
-  ScrollView,
-  RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import VirtualizedView from "./VirtualizedView/VirtualizedView";
+import { useSelector } from "react-redux";
+import { selectDarkMode } from "../store/appSettingsSlice";
 
 export default function Wrapper({ noActivity, children }) {
   const [loading, setloading] = useState(false);
+
+  const isDarkMode = useSelector(selectDarkMode);
+
 
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
@@ -31,7 +33,7 @@ export default function Wrapper({ noActivity, children }) {
     );
   }
   return (
-    <SafeAreaView className="flex-1 bg-black">
+    <SafeAreaView className={`flex-1  ${isDarkMode ? "bg-black" : "bg-white"}`}>
       <VirtualizedView>
         <View className="pb-16">{children}</View>
       </VirtualizedView>

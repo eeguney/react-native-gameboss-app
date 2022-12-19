@@ -6,6 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
+    "scheme": "com.emreguney97.gamezone",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -19,6 +20,7 @@
     ],
     "ios": {
       "supportsTablet": true
+      
     },
     "android": {
       "adaptiveIcon": {
@@ -33,6 +35,17 @@
     "extra": {
       "eas": {
         "projectId": "6a314d40-88bb-4c75-86f0-5c4fd8d29f9e"
+      },
+      "env": {
+        "REVOKE_ENDPOINT": "https://oauth2.googleapis.com/revoke",
+        "EXPO_CLIENT": "375996992910-0ljser5ftbkkdra97vigjc81ls2qe0qa.apps.googleusercontent.com",
+        "ANDROID_CLIENT": "375996992910-h27oap7b74ajq6bnu2f02oinn8seua4c.apps.googleusercontent.com",
+        "USERINFO_ENDPOINT": "https://www.googleapis.com/userinfo/v2/me",
+        "REFRESH_TOKEN_ENDPOINT": "https://www.googleapis.com/oauth2/v4/token",
+        "API": {
+          "TOURNAMENTS": "http://192.168.1.5:8000/v1/api/tournaments",
+          "BLOGS": "http://192.168.1.5:8000/v1/api/blogs"
+        }
       }
     }
   }
